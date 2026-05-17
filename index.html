@@ -348,6 +348,30 @@ header{position:relative;z-index:10;text-align:center;padding:32px 20px 16px;bor
 ::-webkit-scrollbar-track{background:var(--deep);}
 ::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:3px;}
 </style>
+<script>
+// Service Worker登録 — 自動キャッシュ更新
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => {
+        // 新しいSWが見つかったら即座に適用
+        reg.addEventListener('updatefound', () => {
+          const newWorker = reg.installing;
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              // 新バージョン検出 → 自動リロード
+              newWorker.postMessage({ type: 'SKIP_WAITING' });
+            }
+          });
+        });
+      });
+    // SWが切り替わったらページをリロード
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      window.location.reload();
+    });
+  });
+}
+</script>
 </head>
 <body>
 
