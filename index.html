@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>覚醒の道</title>
+
+<!-- iPhone ホーム画面・PWA対応 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="覚醒の道">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0a0a14">
+
+<!-- アプリアイコン（ホーム画面に追加時に使用） -->
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIj4KICA8ZGVmcz4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0iYmciIGN4PSI1MCUiIGN5PSI1MCUiIHI9IjcwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMxYTEwNDAiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMGEwYTE0Ii8+CiAgICA8L3JhZGlhbEdyYWRpZW50PgogICAgPHJhZGlhbEdyYWRpZW50IGlkPSJnbG93IiBjeD0iNTAlIiBjeT0iNDUlIiByPSI1MCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjNmE0ZmM4IiBzdG9wLW9wYWNpdHk9IjAuNSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwYTBhMTQiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgPC9yYWRpYWxHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjE4MCIgaGVpZ2h0PSIxODAiIHJ4PSIzOCIgZmlsbD0idXJsKCNiZykiLz4KICA8cmVjdCB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgcng9IjM4IiBmaWxsPSJ1cmwoI2dsb3cpIi8+CiAgPCEtLSBHb2xkIHJpbmcgZGVjb3JhdGlvbiAtLT4KICA8Y2lyY2xlIGN4PSI5MCIgY3k9IjgyIiByPSI1MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYzlhODRjIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLW9wYWNpdHk9IjAuNCIvPgogIDxjaXJjbGUgY3g9IjkwIiBjeT0iODIiIHI9IjQ0IiBmaWxsPSJub25lIiBzdHJva2U9IiNjOWE4NGMiIHN0cm9rZS13aWR0aD0iMC41IiBzdHJva2Utb3BhY2l0eT0iMC4yIi8+CiAgPCEtLSBEaGFybWEgd2hlZWwgZW1vamkgLS0+CiAgPHRleHQgeD0iOTAiIHk9IjEwMCIgZm9udC1zaXplPSI2NCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFwcGxlIENvbG9yIEVtb2ppLHNlcmlmIj7imLjvuI88L3RleHQ+CiAgPCEtLSBUaXRsZSB0ZXh0IC0tPgogIDx0ZXh0IHg9IjkwIiB5PSIxNDgiIGZvbnQtc2l6ZT0iMTYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNjOWE4NGMiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBsZXR0ZXItc3BhY2luZz0iNCIgZm9udC13ZWlnaHQ9IjMwMCI+6Kaa6YaS44Gu6YGTPC90ZXh0PgogIDwhLS0gU21hbGwgZG90cyBkZWNvcmF0aW9uIC0tPgogIDxjaXJjbGUgY3g9IjM4IiBjeT0iODIiIHI9IjIiIGZpbGw9IiNjOWE4NGMiIG9wYWNpdHk9IjAuNCIvPgogIDxjaXJjbGUgY3g9IjE0MiIgY3k9IjgyIiByPSIyIiBmaWxsPSIjYzlhODRjIiBvcGFjaXR5PSIwLjQiLz4KPC9zdmc+">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIj4KICA8ZGVmcz4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0iYmciIGN4PSI1MCUiIGN5PSI1MCUiIHI9IjcwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMxYTEwNDAiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMGEwYTE0Ii8+CiAgICA8L3JhZGlhbEdyYWRpZW50PgogICAgPHJhZGlhbEdyYWRpZW50IGlkPSJnbG93IiBjeD0iNTAlIiBjeT0iNDUlIiByPSI1MCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjNmE0ZmM4IiBzdG9wLW9wYWNpdHk9IjAuNSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwYTBhMTQiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgPC9yYWRpYWxHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjE4MCIgaGVpZ2h0PSIxODAiIHJ4PSIzOCIgZmlsbD0idXJsKCNiZykiLz4KICA8cmVjdCB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgcng9IjM4IiBmaWxsPSJ1cmwoI2dsb3cpIi8+CiAgPCEtLSBHb2xkIHJpbmcgZGVjb3JhdGlvbiAtLT4KICA8Y2lyY2xlIGN4PSI5MCIgY3k9IjgyIiByPSI1MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYzlhODRjIiBzdHJva2Utd2lkdGg9IjEuNSIgc3Ryb2tlLW9wYWNpdHk9IjAuNCIvPgogIDxjaXJjbGUgY3g9IjkwIiBjeT0iODIiIHI9IjQ0IiBmaWxsPSJub25lIiBzdHJva2U9IiNjOWE4NGMiIHN0cm9rZS13aWR0aD0iMC41IiBzdHJva2Utb3BhY2l0eT0iMC4yIi8+CiAgPCEtLSBEaGFybWEgd2hlZWwgZW1vamkgLS0+CiAgPHRleHQgeD0iOTAiIHk9IjEwMCIgZm9udC1zaXplPSI2NCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFwcGxlIENvbG9yIEVtb2ppLHNlcmlmIj7imLjvuI88L3RleHQ+CiAgPCEtLSBUaXRsZSB0ZXh0IC0tPgogIDx0ZXh0IHg9IjkwIiB5PSIxNDgiIGZvbnQtc2l6ZT0iMTYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNjOWE4NGMiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBsZXR0ZXItc3BhY2luZz0iNCIgZm9udC13ZWlnaHQ9IjMwMCI+6Kaa6YaS44Gu6YGTPC90ZXh0PgogIDwhLS0gU21hbGwgZG90cyBkZWNvcmF0aW9uIC0tPgogIDxjaXJjbGUgY3g9IjM4IiBjeT0iODIiIHI9IjIiIGZpbGw9IiNjOWE4NGMiIG9wYWNpdHk9IjAuNCIvPgogIDxjaXJjbGUgY3g9IjE0MiIgY3k9IjgyIiByPSIyIiBmaWxsPSIjYzlhODRjIiBvcGFjaXR5PSIwLjQiLz4KPC9zdmc+">
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #c9a84c; --gold-light: #f0d080; --gold-dim: #7a6230;
+  --deep: #0a0a14; --surface: #10101e; --surface2: #181828; --surface3: #20203a;
+  --text: #e8dfc8; --text-dim: #8a8070;
+  --jade: #50c8a0; --sakura: #e8a0b0; --accent: #6a4fc8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--deep);color:var(--text);font-family:'Noto Serif JP',serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:
+  radial-gradient(ellipse at 20% 15%,rgba(106,79,200,.15) 0%,transparent 50%),
+  radial-gradient(ellipse at 80% 85%,rgba(200,80,144,.10) 0%,transparent 50%),
+  radial-gradient(ellipse at 50% 50%,rgba(201,168,76,.05) 0%,transparent 70%);
+  pointer-events:none;z-index:0;}
+.stars{position:fixed;inset:0;pointer-events:none;z-index:0;}
+.star{position:absolute;background:white;border-radius:50%;animation:twinkle var(--dur) ease-in-out infinite;}
+@keyframes twinkle{0%,100%{opacity:.2;transform:scale(1);}50%{opacity:1;transform:scale(1.3);}}
+
+/* ===== NAV TABS ===== */
+.tab-bar{position:sticky;top:0;z-index:50;display:flex;background:rgba(10,10,20,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,.15);}
+.tab-btn{flex:1;padding:14px 4px 12px;font-family:'Noto Serif JP',serif;font-size:11px;letter-spacing:1px;color:var(--text-dim);background:none;border:none;cursor:pointer;transition:all .3s;border-bottom:2px solid transparent;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.tab-btn .tab-icon{font-size:18px;}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
+.tab-btn:hover{color:var(--text);}
+.tab-content{display:none;position:relative;z-index:10;}
+.tab-content.active{display:block;}
+
+/* ===== HEADER ===== */
+header{position:relative;z-index:10;text-align:center;padding:32px 20px 16px;border-bottom:1px solid rgba(201,168,76,.2);}
+.header-emblem{font-size:44px;margin-bottom:6px;filter:drop-shadow(0 0 20px rgba(201,168,76,.6));animation:pulse-glow 3s ease-in-out infinite;}
+@keyframes pulse-glow{0%,100%{filter:drop-shadow(0 0 20px rgba(201,168,76,.6));}50%{filter:drop-shadow(0 0 40px rgba(201,168,76,1));}}
+.header-title{font-family:'Cinzel Decorative',serif;font-size:11px;letter-spacing:4px;color:var(--gold);margin-bottom:3px;}
+.header-sub{font-size:20px;font-weight:300;letter-spacing:6px;}
+.info-bar{position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(201,168,76,.1);}
+.date-display{font-size:12px;color:var(--text-dim);letter-spacing:1px;}
+.streak-badge{display:flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.05));border:1px solid rgba(201,168,76,.3);border-radius:20px;padding:5px 14px;font-size:12px;color:var(--gold);}
+.streak-num{font-size:18px;font-weight:700;}
+
+/* ===== PROGRESS RING ===== */
+.progress-section{position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;padding:24px 20px 16px;}
+.progress-ring-wrap{position:relative;width:140px;height:140px;}
+.progress-ring-wrap svg{transform:rotate(-90deg);}
+.ring-bg{fill:none;stroke:rgba(201,168,76,.1);stroke-width:8;}
+.ring-fill{fill:none;stroke:url(#ringGrad);stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset .8s cubic-bezier(.4,0,.2,1);}
+.ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.ring-pct{font-size:30px;font-weight:700;color:var(--gold);line-height:1;}
+.ring-label{font-size:10px;color:var(--text-dim);letter-spacing:2px;margin-top:3px;}
+.progress-msg{margin-top:12px;font-size:13px;color:var(--text-dim);letter-spacing:1px;text-align:center;}
+
+/* ===== BANNERS ===== */
+.alert-banner{margin:0 16px 8px;padding:12px 16px;background:linear-gradient(135deg,rgba(200,80,144,.15),rgba(200,80,144,.05));border:1px solid rgba(200,80,144,.4);border-radius:12px;font-size:13px;color:var(--sakura);display:none;position:relative;z-index:10;}
+.alert-banner.show{display:block;}
+.alert-title{font-weight:700;margin-bottom:5px;font-size:13px;}
+.alert-items{list-style:none;}.alert-items li::before{content:'⚡ ';}
+.all-done-banner{margin:0 16px 12px;padding:16px;background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(106,79,200,.1));border:1px solid rgba(201,168,76,.5);border-radius:14px;text-align:center;position:relative;z-index:10;display:none;}
+.all-done-banner.show{display:block;}
+.all-done-title{font-size:16px;color:var(--gold);margin-bottom:3px;}
+.all-done-sub{font-size:11px;color:var(--text-dim);letter-spacing:2px;}
+
+/* ===== HABITS ===== */
+.habits-section{position:relative;z-index:10;padding:8px 16px 100px;}
+.section-label{font-size:10px;letter-spacing:4px;color:var(--text-dim);margin-bottom:12px;text-transform:uppercase;}
+.habit-card{display:flex;align-items:center;gap:14px;padding:14px 16px;margin-bottom:8px;background:var(--surface);border:1px solid rgba(255,255,255,.06);border-radius:14px;cursor:pointer;transition:all .3s;user-select:none;position:relative;overflow:hidden;}
+.habit-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--habit-color,var(--gold));border-radius:3px 0 0 3px;transition:width .3s;}
+.habit-card:hover{border-color:rgba(201,168,76,.2);transform:translateX(2px);}
+.habit-card.done{background:linear-gradient(135deg,rgba(80,200,160,.08),rgba(80,200,160,.03));border-color:rgba(80,200,160,.25);}
+.habit-card.done::before{background:var(--jade);width:4px;}
+.habit-check{width:34px;height:34px;border-radius:50%;border:2px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:all .3s;}
+.habit-card.done .habit-check{background:var(--jade);border-color:var(--jade);animation:checkPop .4s cubic-bezier(.34,1.56,.64,1);}
+@keyframes checkPop{0%{transform:scale(.5);}100%{transform:scale(1);}}
+.habit-info{flex:1;min-width:0;}
+.habit-name{font-size:14px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.habit-card.done .habit-name{color:var(--jade);}
+.habit-desc{font-size:11px;color:var(--text-dim);margin-top:2px;}
+.habit-meta{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0;}
+.habit-time{font-size:10px;color:var(--text-dim);}
+.habit-notif{font-size:10px;color:rgba(201,168,76,.6);}
+
+/* ===== CHARACTER POPUP ===== */
+.char-panel{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:rgba(10,10,20,.85);backdrop-filter:blur(12px);opacity:0;pointer-events:none;transition:opacity .4s;}
+.char-panel.show{opacity:1;pointer-events:all;}
+.char-card{background:linear-gradient(160deg,var(--surface2),var(--surface));border:1px solid rgba(201,168,76,.4);border-radius:24px;padding:36px 32px;max-width:340px;width:90%;text-align:center;position:relative;box-shadow:0 0 60px rgba(201,168,76,.2),0 0 120px rgba(106,79,200,.15);animation:cardAppear .5s cubic-bezier(.34,1.56,.64,1);}
+@keyframes cardAppear{from{transform:scale(.7) translateY(30px);opacity:0;}to{transform:scale(1) translateY(0);opacity:1;}}
+.char-aura{position:absolute;inset:-20px;border-radius:40px;background:radial-gradient(ellipse,rgba(201,168,76,.1),transparent 70%);animation:aura 2s ease-in-out infinite;pointer-events:none;}
+@keyframes aura{0%,100%{transform:scale(1);opacity:.5;}50%{transform:scale(1.1);opacity:1;}}
+.char-emoji{font-size:64px;margin-bottom:6px;display:block;filter:drop-shadow(0 0 20px rgba(201,168,76,.8));animation:float 3s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+.char-name{font-size:11px;letter-spacing:4px;color:var(--gold-dim);margin-bottom:3px;text-transform:uppercase;}
+.char-message{font-size:17px;line-height:1.9;color:var(--text);margin:14px 0 22px;font-weight:300;}
+.char-highlight{color:var(--gold);font-weight:700;}
+.char-close{background:linear-gradient(135deg,var(--gold),var(--gold-dim));color:var(--deep);border:none;border-radius:30px;padding:11px 32px;font-family:'Noto Serif JP',serif;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:2px;transition:all .2s;}
+.char-close:hover{transform:scale(1.05);box-shadow:0 0 20px rgba(201,168,76,.5);}
+.particle{position:fixed;pointer-events:none;z-index:200;animation:particleFly 1.2s ease-out forwards;}
+@keyframes particleFly{0%{opacity:1;transform:translate(0,0) scale(1);}100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(0);}}
+
+/* ===== CALENDAR TAB ===== */
+.calendar-section{padding:20px 16px 100px;}
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.cal-nav{background:none;border:1px solid rgba(201,168,76,.3);color:var(--gold);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:16px;transition:all .2s;}
+.cal-nav:hover{background:rgba(201,168,76,.1);}
+.cal-month{font-size:16px;color:var(--gold);letter-spacing:2px;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:20px;}
+.cal-day-label{text-align:center;font-size:10px;color:var(--text-dim);padding:4px 0;letter-spacing:1px;}
+.cal-day{aspect-ratio:1;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;cursor:default;position:relative;transition:all .2s;}
+.cal-day.empty{background:transparent;}
+.cal-day.today{border:1px solid rgba(201,168,76,.4);}
+.cal-day.full{background:linear-gradient(135deg,rgba(80,200,160,.3),rgba(80,200,160,.1));color:var(--jade);}
+.cal-day.partial{background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.05));color:var(--gold);}
+.cal-day.none{background:rgba(255,255,255,.03);color:var(--text-dim);}
+.cal-day.future{background:transparent;color:rgba(255,255,255,.1);}
+.cal-dot{width:4px;height:4px;border-radius:50%;margin-top:2px;}
+.cal-day.full .cal-dot{background:var(--jade);}
+.cal-day.partial .cal-dot{background:var(--gold);}
+.cal-legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px;}
+.cal-legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-dim);}
+.cal-legend-dot{width:10px;height:10px;border-radius:3px;}
+.cal-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.cal-stat-card{background:var(--surface);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:14px;text-align:center;}
+.cal-stat-num{font-size:26px;font-weight:700;color:var(--gold);}
+.cal-stat-label{font-size:10px;color:var(--text-dim);margin-top:4px;letter-spacing:1px;}
+
+/* ===== EDIT TAB ===== */
+.edit-section{padding:20px 16px 100px;}
+.edit-card{background:var(--surface);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px 16px;margin-bottom:10px;position:relative;}
+.edit-card-header{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.edit-icon-btn{font-size:24px;background:none;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:6px 10px;cursor:pointer;transition:all .2s;}
+.edit-icon-btn:hover{background:rgba(255,255,255,.05);}
+.edit-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.edit-input{width:100%;background:var(--surface2);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 12px;color:var(--text);font-family:'Noto Serif JP',serif;font-size:13px;outline:none;transition:border-color .2s;}
+.edit-input:focus{border-color:rgba(201,168,76,.4);}
+.edit-input.full{grid-column:1/-1;}
+.edit-row{display:flex;align-items:center;gap:8px;margin-top:8px;}
+.edit-label{font-size:11px;color:var(--text-dim);letter-spacing:1px;white-space:nowrap;}
+.edit-color{width:36px;height:36px;border-radius:8px;border:1px solid rgba(255,255,255,.15);cursor:pointer;padding:2px;}
+.edit-time-input{flex:1;background:var(--surface2);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:7px 10px;color:var(--text);font-size:12px;outline:none;}
+.edit-time-input:focus{border-color:rgba(201,168,76,.4);}
+.edit-actions{display:flex;gap:8px;margin-top:10px;}
+.edit-del-btn{background:rgba(200,80,144,.1);border:1px solid rgba(200,80,144,.2);color:var(--sakura);border-radius:8px;padding:6px 12px;font-size:12px;cursor:pointer;transition:all .2s;}
+.edit-del-btn:hover{background:rgba(200,80,144,.2);}
+.edit-save-btn{flex:1;background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.05));border:1px solid rgba(201,168,76,.3);color:var(--gold);border-radius:8px;padding:6px 12px;font-size:12px;cursor:pointer;font-family:'Noto Serif JP',serif;transition:all .2s;}
+.edit-save-btn:hover{background:rgba(201,168,76,.25);}
+.add-habit-btn{width:100%;padding:14px;background:rgba(255,255,255,.03);border:1px dashed rgba(201,168,76,.3);border-radius:14px;color:var(--gold);font-family:'Noto Serif JP',serif;font-size:14px;cursor:pointer;transition:all .2s;letter-spacing:2px;margin-bottom:16px;}
+.add-habit-btn:hover{background:rgba(201,168,76,.05);border-color:rgba(201,168,76,.6);}
+
+/* ===== NOTIFICATION TAB ===== */
+.notif-section{padding:20px 16px 100px;}
+.notif-info{background:var(--surface);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:16px;margin-bottom:20px;font-size:13px;color:var(--text-dim);line-height:1.8;}
+.notif-info strong{color:var(--gold);}
+.notif-permission-btn{width:100%;padding:14px;background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(106,79,200,.1));border:1px solid rgba(201,168,76,.4);border-radius:14px;color:var(--gold);font-family:'Noto Serif JP',serif;font-size:14px;cursor:pointer;letter-spacing:2px;margin-bottom:20px;transition:all .2s;}
+.notif-permission-btn:hover{box-shadow:0 0 20px rgba(201,168,76,.2);}
+.notif-status{text-align:center;font-size:12px;color:var(--text-dim);margin-bottom:20px;padding:10px;border-radius:8px;background:rgba(255,255,255,.03);}
+.notif-status.granted{color:var(--jade);}
+.notif-status.denied{color:var(--sakura);}
+.notif-list{display:flex;flex-direction:column;gap:10px;}
+.notif-item{background:var(--surface);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:14px 16px;}
+.notif-item-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.notif-item-title{font-size:14px;color:var(--text);}
+.notif-toggle{position:relative;width:44px;height:24px;}
+.notif-toggle input{opacity:0;width:0;height:0;}
+.notif-slider{position:absolute;inset:0;background:rgba(255,255,255,.1);border-radius:24px;cursor:pointer;transition:.3s;}
+.notif-slider::before{content:'';position:absolute;height:18px;width:18px;left:3px;bottom:3px;background:var(--text-dim);border-radius:50%;transition:.3s;}
+.notif-toggle input:checked+.notif-slider{background:rgba(201,168,76,.4);}
+.notif-toggle input:checked+.notif-slider::before{transform:translateX(20px);background:var(--gold);}
+.notif-time-row{display:flex;align-items:center;gap:10px;}
+.notif-time-label{font-size:12px;color:var(--text-dim);flex:1;}
+.notif-time-pick{background:var(--surface2);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:7px 12px;color:var(--text);font-size:13px;outline:none;width:100px;}
+.notif-time-pick:focus{border-color:rgba(201,168,76,.4);}
+.notif-msg{font-size:11px;color:var(--text-dim);margin-top:8px;padding:8px;background:rgba(255,255,255,.03);border-radius:8px;line-height:1.6;}
+
+/* ===== SETTINGS FLOAT ===== */
+.fab{position:fixed;bottom:80px;right:20px;z-index:50;display:flex;flex-direction:column;gap:8px;align-items:flex-end;}
+.fab-btn{background:var(--surface2);border:1px solid rgba(201,168,76,.3);color:var(--gold);border-radius:20px;padding:8px 14px;font-size:13px;cursor:pointer;font-family:'Noto Serif JP',serif;transition:all .2s;white-space:nowrap;}
+.fab-btn:hover{background:rgba(201,168,76,.1);}
+.fab-btn.danger{color:var(--sakura);border-color:rgba(200,80,144,.2);}
+
+/* ===== EMOJI PICKER ===== */
+.emoji-picker{position:fixed;z-index:200;background:var(--surface2);border:1px solid rgba(201,168,76,.3);border-radius:16px;padding:12px;display:none;box-shadow:0 8px 32px rgba(0,0,0,.5);}
+.emoji-picker.show{display:block;}
+.emoji-grid{display:grid;grid-template-columns:repeat(8,36px);gap:4px;}
+.emoji-opt{width:36px;height:36px;border:none;background:none;font-size:20px;cursor:pointer;border-radius:8px;transition:background .15s;}
+.emoji-opt:hover{background:rgba(255,255,255,.1);}
+
+/* ===== SCROLL ===== */
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--deep);}
+::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:3px;}
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<header>
+  <div class="header-emblem">☸️</div>
+  <div class="header-title">KAKUSEI TRACKER</div>
+  <div class="header-sub">覚醒の道</div>
+</header>
+
+<div class="info-bar">
+  <div class="date-display" id="dateDisplay">—</div>
+  <div class="streak-badge">🔥 <span class="streak-num" id="streakNum">0</span> 日連続</div>
+</div>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('today')" id="tab-today">
+    <span class="tab-icon">☀️</span>今日
+  </button>
+  <button class="tab-btn" onclick="switchTab('calendar')" id="tab-calendar">
+    <span class="tab-icon">📅</span>履歴
+  </button>
+  <button class="tab-btn" onclick="switchTab('edit')" id="tab-edit">
+    <span class="tab-icon">✏️</span>習慣編集
+  </button>
+  <button class="tab-btn" onclick="switchTab('notif')" id="tab-notif">
+    <span class="tab-icon">🔔</span>通知
+  </button>
+</div>
+
+<!-- ===== TODAY TAB ===== -->
+<div class="tab-content active" id="tab-today-content">
+  <div class="progress-section">
+    <div class="progress-ring-wrap">
+      <svg width="140" height="140" viewBox="0 0 140 140">
+        <defs>
+          <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#c9a84c"/>
+            <stop offset="100%" stop-color="#6a4fc8"/>
+          </linearGradient>
+        </defs>
+        <circle class="ring-bg" cx="70" cy="70" r="60"/>
+        <circle class="ring-fill" cx="70" cy="70" r="60" id="ringFill"
+          stroke-dasharray="376.99" stroke-dashoffset="376.99"/>
+      </svg>
+      <div class="ring-center">
+        <div class="ring-pct" id="ringPct">0%</div>
+        <div class="ring-label">達成率</div>
+      </div>
+    </div>
+    <div class="progress-msg" id="progressMsg">今日の修行を始めましょう</div>
+  </div>
+
+  <div class="alert-banner" id="alertBanner">
+    <div class="alert-title">⚠️ まだ完了していない修行があります</div>
+    <ul class="alert-items" id="alertItems"></ul>
+  </div>
+  <div class="all-done-banner" id="allDoneBanner">
+    <div class="all-done-title">✨ 本日の修行、完了！ ✨</div>
+    <div class="all-done-sub">すべての習慣を達成しました</div>
+  </div>
+
+  <div class="habits-section">
+    <div class="section-label">今日の修行</div>
+    <div id="habitList"></div>
+  </div>
+
+  <div class="fab">
+    <button class="fab-btn" onclick="showAlert()">📣 未完了を確認</button>
+    <button class="fab-btn" onclick="showCharacter('encourage')">🙏 応援を受ける</button>
+    <button class="fab-btn danger" onclick="resetToday()">🔄 今日をリセット</button>
+  </div>
+</div>
+
+<!-- ===== CALENDAR TAB ===== -->
+<div class="tab-content" id="tab-calendar-content">
+  <div class="calendar-section">
+    <div class="cal-header">
+      <button class="cal-nav" onclick="calPrev()">‹</button>
+      <div class="cal-month" id="calMonth">—</div>
+      <button class="cal-nav" onclick="calNext()">›</button>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+    <div class="cal-legend">
+      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:rgba(80,200,160,.4)"></div>全完了</div>
+      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:rgba(201,168,76,.3)"></div>一部完了</div>
+      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:rgba(255,255,255,.08)"></div>未達成</div>
+    </div>
+    <div class="cal-stats">
+      <div class="cal-stat-card">
+        <div class="cal-stat-num" id="statFull">0</div>
+        <div class="cal-stat-label">完全達成日</div>
+      </div>
+      <div class="cal-stat-card">
+        <div class="cal-stat-num" id="statStreak">0</div>
+        <div class="cal-stat-label">現在の連続</div>
+      </div>
+      <div class="cal-stat-card">
+        <div class="cal-stat-num" id="statBest">0</div>
+        <div class="cal-stat-label">最長連続</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== EDIT TAB ===== -->
+<div class="tab-content" id="tab-edit-content">
+  <div class="edit-section">
+    <button class="add-habit-btn" onclick="addHabit()">＋ 新しい修行を追加</button>
+    <div id="editList"></div>
+    <button class="fab-btn danger" style="margin-top:16px;width:100%;text-align:center;" onclick="resetAll()">💀 全データをリセット</button>
+  </div>
+</div>
+
+<!-- ===== NOTIFICATION TAB ===== -->
+<div class="tab-content" id="tab-notif-content">
+  <div class="notif-section">
+    <div class="notif-info">
+      <strong>時間帯別リマインダー</strong>とは、指定した時刻にブラウザ通知で「まだ完了していない習慣」をお知らせする機能です。<br><br>
+      ※ このページを開いたままにするか、定期的に開くことで通知が送られます。<br>
+      ※ 初回は通知の許可が必要です。
+    </div>
+    <button class="notif-permission-btn" onclick="requestNotifPermission()">🔔 ブラウザ通知を許可する</button>
+    <div class="notif-status" id="notifStatus">確認中...</div>
+    <div class="notif-list" id="notifList"></div>
+  </div>
+</div>
+
+<!-- CHARACTER POPUP -->
+<div class="char-panel" id="charPanel" onclick="closeChar()">
+  <div class="char-card" onclick="event.stopPropagation()">
+    <div class="char-aura"></div>
+    <span class="char-emoji" id="charEmoji">🌸</span>
+    <div class="char-name" id="charName">天照大御神</div>
+    <div class="char-message" id="charMessage">—</div>
+    <button class="char-close" onclick="closeChar()">はい、精進します</button>
+  </div>
+</div>
+
+<!-- EMOJI PICKER -->
+<div class="emoji-picker" id="emojiPicker">
+  <div class="emoji-grid" id="emojiGrid"></div>
+</div>
+
+<script>
+// ============================================================
+// CONSTANTS
+// ============================================================
+const EMOJIS = ['🏊','🧘','🌾','🫙','🌬️','✨','📖','🌙','🔮','🐉','🌸','☀️','🌊','⚡','🏃','🎯','🍵','💧','🌿','🙏','🧠','💪','❤️','🌍','🔥','⭐','🌟','💫','🎵','🌺','🦋','🌈'];
+
+const DEFAULT_HABITS = [
+  {id:'swim',    icon:'🏊', name:'水泳・有酸素運動',    desc:'心身を活性化する運動',           color:'#50c8ff', time:'朝',   notifTime:'06:30'},
+  {id:'yoga',    icon:'🧘', name:'ヨガ・気功',           desc:'気の流れを整え生命エネルギーを高める', color:'#c850c8', time:'朝',   notifTime:'07:00'},
+  {id:'prayer',  icon:'🙏', name:'お礼拝・瞑想',         desc:'天地への感謝と内なる静けさを育む', color:'#e8a050', time:'朝・夜',notifTime:'07:30'},
+  {id:'shiko',   icon:'🦵', name:'シコ踏み・陸上筋トレ', desc:'大地と繋がる体幹・下半身の強化', color:'#e85050', time:'朝',   notifTime:'08:00'},
+  {id:'genmai',  icon:'🌾', name:'めざめ玄米®️発酵発芽玄米', desc:'腸内環境・生命エネルギーの礎',   color:'#c8a050', time:'毎食', notifTime:'08:30'},
+  {id:'ferment', icon:'🫙', name:'発酵食品・プロテイン',    desc:'有用微生物群・タンパク質の補充', color:'#50c8a0', time:'毎食', notifTime:'09:00'},
+  {id:'breath',  icon:'🌬️', name:'チベット呼吸・呼吸法', desc:'神経系を整え覚醒を促す',         color:'#8050c8', time:'朝・夜',notifTime:'09:30'},
+  {id:'gratitude',icon:'✨', name:'感謝・祈り日記',       desc:'引き寄せの場を整える',           color:'#c8a84c', time:'夜',   notifTime:'21:00'},
+  {id:'learn',   icon:'📖', name:'学習・AI・精神世界',   desc:'叡智のインプット',               color:'#4c80c8', time:'昼',   notifTime:'13:00'},
+  {id:'sleep',   icon:'🌙', name:'22時までに就寝準備',   desc:'睡眠の質で翌日の覚醒が決まる',   color:'#4c50c8', time:'夜',   notifTime:'21:30'},
+];
+
+const CHARS = [
+  {emoji:'☀️', name:'天照大御神', title:'アマテラス'},
+  {emoji:'🌸', name:'弥勒菩薩',   title:'ミロク'},
+  {emoji:'🐉', name:'龍神',       title:'リュウジン'},
+  {emoji:'🔮', name:'月読命',     title:'ツクヨミ'},
+];
+
+const PRAISE = [
+  (h,c)=>`<span class='char-highlight'>${h}</span>、見事じゃ。<br>その一歩が弥勒の世への礎となる。`,
+  (h,c)=>`${c.title}も見ておったぞ。<br><span class='char-highlight'>${h}</span>の実践、天地に刻まれた。`,
+  (h,c)=>`素晴らしい。<br><span class='char-highlight'>${h}</span>を成し遂げたシゲルの魂が<br>また一段と輝きを増した。`,
+  (h,c)=>`光よ、さらに降り注げ！<br><span class='char-highlight'>${h}</span>、完了。<br>宇宙はシゲルを見ている。`,
+];
+const COMPLETE = [
+  c=>`全ての修行、完了じゃ！<br><span class='char-highlight'>今日のシゲルは完璧な弥勒の器</span>。<br>天も地も讃えておる！`,
+  c=>`見事！完全達成！<br><span class='char-highlight'>この純粋な生命エネルギー</span>が<br>世界を変える力となる。`,
+];
+const ENCOURAGE = [
+  c=>`焦ることなかれ。<br>一つ一つの実践が<span class='char-highlight'>覚醒の螺旋</span>を描く。<br>今日もシゲルを応援しておるぞ。`,
+  c=>`弥勒の世は<span class='char-highlight'>今、ここから</span>始まっている。<br>シゲルの習慣が、その礎じゃ。`,
+];
+
+// ============================================================
+// STATE
+// ============================================================
+const KEY = 'kakusei_v2';
+let state = {
+  habits: JSON.parse(JSON.stringify(DEFAULT_HABITS)),
+  checks: {},
+  streak: 0,
+  bestStreak: 0,
+  lastFullDate: null,
+  notifSettings: {},  // { slotId: { enabled, time } }
+};
+
+const todayKey = () => new Date().toISOString().slice(0,10);
+
+function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){} }
+
+function load() {
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (raw) {
+      const loaded = JSON.parse(raw);
+      state = Object.assign({}, state, loaded);
+      if (!state.checks) state.checks = {};
+      if (!state.notifSettings) state.notifSettings = {};
+      if (!state.habits) state.habits = JSON.parse(JSON.stringify(DEFAULT_HABITS));
+    }
+  } catch(e) {}
+}
+
+function todayChecks() {
+  const k = todayKey();
+  if (!state.checks[k]) state.checks[k] = {};
+  return state.checks[k];
+}
+function isDone(id) { return !!todayChecks()[id]; }
+function doneCount() { return Object.keys(todayChecks()).length; }
+function totalCount() { return state.habits.length; }
+
+// ============================================================
+// TABS
+// ============================================================
+let currentTab = 'today';
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  document.getElementById('tab-'+tab+'-content').classList.add('active');
+  currentTab = tab;
+  if (tab === 'calendar') renderCalendar();
+  if (tab === 'edit') renderEdit();
+  if (tab === 'notif') renderNotif();
+}
+
+// ============================================================
+// STREAK
+// ============================================================
+function updateStreak() {
+  const k = todayKey();
+  const checks = state.checks[k] || {};
+  const allDone = state.habits.every(h => checks[h.id]);
+  if (allDone) {
+    const yesterday = new Date(); yesterday.setDate(yesterday.getDate()-1);
+    const yk = yesterday.toISOString().slice(0,10);
+    if (state.lastFullDate !== k) {
+      if (state.lastFullDate === yk) state.streak = (state.streak||0)+1;
+      else state.streak = 1;
+      state.lastFullDate = k;
+      if ((state.streak||0) > (state.bestStreak||0)) state.bestStreak = state.streak;
+      save();
+    }
+  }
+  document.getElementById('streakNum').textContent = state.streak || 0;
+}
+
+// ============================================================
+// RENDER TODAY
+// ============================================================
+function renderDate() {
+  const now = new Date();
+  const days = ['日','月','火','水','木','金','土'];
+  document.getElementById('dateDisplay').textContent =
+    `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 （${days[now.getDay()]}）`;
+}
+
+function renderProgress() {
+  const done = doneCount(), total = totalCount();
+  const pct = total ? Math.round(done/total*100) : 0;
+  const circ = 2*Math.PI*60;
+  document.getElementById('ringPct').textContent = pct+'%';
+  document.getElementById('ringFill').style.strokeDashoffset = circ-(circ*pct/100);
+  const msgs=['今日の修行を始めましょう','素晴らしいスタート！続けよう','半分を超えた！勢いをつけて','残りわずか。完全達成が見える！','🌟 全て完了！弥勒の器が満たされた'];
+  document.getElementById('progressMsg').textContent = msgs[pct===100?4:Math.floor(pct/25)];
+  document.getElementById('allDoneBanner').classList.toggle('show', pct===100);
+}
+
+function renderHabits() {
+  const list = document.getElementById('habitList');
+  list.innerHTML = '';
+  state.habits.forEach(h => {
+    const done = isDone(h.id);
+    const ns = state.notifSettings[h.id] || {};
+    const card = document.createElement('div');
+    card.className = 'habit-card'+(done?' done':'');
+    card.style.setProperty('--habit-color', h.color);
+    card.innerHTML = `
+      <div class="habit-check">${done?'✓':''}</div>
+      <div class="habit-info">
+        <div class="habit-name"><span style="margin-right:4px">${h.icon}</span>${h.name}</div>
+        <div class="habit-desc">${h.desc}</div>
+      </div>
+      <div class="habit-meta">
+        <div class="habit-time">${h.time}</div>
+        ${ns.enabled?`<div class="habit-notif">🔔${ns.time||h.notifTime}</div>`:''}
+      </div>`;
+    card.onclick = () => toggleHabit(h.id, h.name, card);
+    list.appendChild(card);
+  });
+}
+
+function renderAlert() {
+  const undone = state.habits.filter(h => !isDone(h.id));
+  const banner = document.getElementById('alertBanner');
+  const items = document.getElementById('alertItems');
+  if (undone.length>0 && undone.length<totalCount()) {
+    items.innerHTML = undone.map(h=>`<li>${h.icon} ${h.name}</li>`).join('');
+    banner.classList.add('show');
+  } else { banner.classList.remove('show'); }
+}
+
+function renderAll() {
+  renderDate(); renderProgress(); renderHabits(); renderAlert(); updateStreak();
+}
+
+// ============================================================
+// TOGGLE
+// ============================================================
+function toggleHabit(id, name, cardEl) {
+  const checks = todayChecks();
+  if (checks[id]) { delete checks[id]; save(); renderAll(); }
+  else {
+    checks[id] = Date.now(); save(); renderAll(); spawnParticles(cardEl);
+    const allDone = state.habits.every(h => todayChecks()[h.id]);
+    setTimeout(() => showCharacter(allDone?'complete':'praise', name), 400);
+  }
+}
+
+// ============================================================
+// PARTICLES
+// ============================================================
+function spawnParticles(el) {
+  const rect = el.getBoundingClientRect();
+  const cx = rect.left+rect.width/2, cy = rect.top+rect.height/2;
+  const emojis = ['✨','🌟','💫','⭐','🔮','🌸','🌀'];
+  for (let i=0;i<10;i++) {
+    const p = document.createElement('div');
+    p.className='particle';
+    p.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    p.style.cssText=`left:${cx}px;top:${cy}px;font-size:${14+Math.random()*16}px;--tx:${(Math.random()-.5)*160}px;--ty:${(Math.random()-1.2)*120}px;animation-duration:${.8+Math.random()*.6}s;`;
+    document.body.appendChild(p);
+    p.addEventListener('animationend',()=>p.remove());
+  }
+}
+
+// ============================================================
+// CHARACTER
+// ============================================================
+function showCharacter(type, habitName='') {
+  const char = CHARS[Math.floor(Math.random()*CHARS.length)];
+  let msg;
+  if (type==='praise') msg=PRAISE[Math.floor(Math.random()*PRAISE.length)](habitName,char);
+  else if (type==='complete') msg=COMPLETE[Math.floor(Math.random()*COMPLETE.length)](char);
+  else msg=ENCOURAGE[Math.floor(Math.random()*ENCOURAGE.length)](char);
+  document.getElementById('charEmoji').textContent=char.emoji;
+  document.getElementById('charName').textContent=char.name;
+  document.getElementById('charMessage').innerHTML=msg;
+  document.getElementById('charPanel').classList.add('show');
+}
+function closeChar() { document.getElementById('charPanel').classList.remove('show'); }
+
+// ============================================================
+// ALERTS / FAB
+// ============================================================
+function showAlert() {
+  const undone = state.habits.filter(h=>!isDone(h.id));
+  if (undone.length===0) showCharacter('complete','全て');
+  else { renderAlert(); document.getElementById('alertBanner').scrollIntoView({behavior:'smooth'}); showCharacter('encourage'); }
+}
+
+function resetToday() {
+  if (confirm('今日のチェックをリセットしますか？')) { state.checks[todayKey()]={};save();renderAll();}
+}
+function resetAll() {
+  if (confirm('全データをリセットしますか？この操作は元に戻せません。')) {
+    state={habits:JSON.parse(JSON.stringify(DEFAULT_HABITS)),checks:{},streak:0,bestStreak:0,lastFullDate:null,notifSettings:{}};
+    save();renderAll();renderEdit();
+  }
+}
+
+// ============================================================
+// CALENDAR
+// ============================================================
+let calYear = new Date().getFullYear();
+let calMonth = new Date().getMonth();
+
+function calPrev() { calMonth--; if(calMonth<0){calMonth=11;calYear--;} renderCalendar(); }
+function calNext() { calMonth++; if(calMonth>11){calMonth=0;calYear++;} renderCalendar(); }
+
+function renderCalendar() {
+  const mnames=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+  document.getElementById('calMonth').textContent = `${calYear}年 ${mnames[calMonth]}`;
+
+  const grid = document.getElementById('calGrid');
+  grid.innerHTML = '';
+  const daylabels = ['日','月','火','水','木','金','土'];
+  daylabels.forEach(d=>{ const el=document.createElement('div');el.className='cal-day-label';el.textContent=d;grid.appendChild(el); });
+
+  const firstDay = new Date(calYear,calMonth,1).getDay();
+  const daysInMonth = new Date(calYear,calMonth+1,0).getDate();
+  const today = todayKey();
+
+  // empty cells
+  for (let i=0;i<firstDay;i++) { const el=document.createElement('div');el.className='cal-day empty';grid.appendChild(el); }
+
+  let fullCount=0;
+  for (let d=1;d<=daysInMonth;d++) {
+    const dk = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const checks = state.checks[dk]||{};
+    const done = Object.keys(checks).length;
+    const total = state.habits.length;
+    const isFuture = dk > today;
+    const isToday = dk === today;
+
+    const el = document.createElement('div');
+    el.className = 'cal-day';
+    if (isFuture) el.classList.add('future');
+    else if (done===0) el.classList.add('none');
+    else if (done>=total) { el.classList.add('full'); fullCount++; }
+    else el.classList.add('partial');
+    if (isToday) el.classList.add('today');
+
+    el.innerHTML = `<span>${d}</span>${!isFuture && done>0?'<div class="cal-dot"></div>':''}`;
+    el.title = isFuture?'':dk+` | ${done}/${total}完了`;
+    grid.appendChild(el);
+  }
+
+  // Stats
+  document.getElementById('statFull').textContent = fullCount;
+  document.getElementById('statStreak').textContent = state.streak||0;
+  document.getElementById('statBest').textContent = state.bestStreak||0;
+}
+
+// ============================================================
+// EDIT
+// ============================================================
+let editingEmoji = null;
+
+function renderEdit() {
+  const list = document.getElementById('editList');
+  list.innerHTML = '';
+  state.habits.forEach((h,i) => {
+    const div = document.createElement('div');
+    div.className = 'edit-card';
+    div.innerHTML = `
+      <div class="edit-card-header">
+        <button class="edit-icon-btn" onclick="openEmojiPicker(${i},this)" title="アイコン変更">${h.icon}</button>
+        <span style="font-size:12px;color:var(--text-dim)">アイコンをタップで変更</span>
+      </div>
+      <div class="edit-fields">
+        <input class="edit-input full" value="${h.name}" placeholder="修行名" oninput="updateHabit(${i},'name',this.value)">
+        <input class="edit-input full" value="${h.desc}" placeholder="説明" oninput="updateHabit(${i},'desc',this.value)">
+        <input class="edit-input" value="${h.time}" placeholder="時間帯（例：朝）" oninput="updateHabit(${i},'time',this.value)">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:11px;color:var(--text-dim)">色</span>
+          <input type="color" class="edit-color" value="${h.color}" oninput="updateHabit(${i},'color',this.value)">
+        </div>
+      </div>
+      <div class="edit-actions">
+        <button class="edit-del-btn" onclick="deleteHabit(${i})">🗑 削除</button>
+        <button class="edit-save-btn" onclick="saveHabits()">✓ 保存</button>
+      </div>`;
+    list.appendChild(div);
+  });
+}
+
+function updateHabit(i, field, val) {
+  state.habits[i][field] = val;
+}
+
+function saveHabits() {
+  save(); renderAll();
+  // flash feedback
+  const btn = event.target;
+  btn.textContent='✓ 保存しました！';
+  btn.style.color='var(--jade)';
+  setTimeout(()=>{ btn.textContent='✓ 保存'; btn.style.color=''; },1500);
+}
+
+function deleteHabit(i) {
+  if (confirm(`「${state.habits[i].name}」を削除しますか？`)) {
+    state.habits.splice(i,1); save(); renderEdit(); renderAll();
+  }
+}
+
+function addHabit() {
+  const newH = {
+    id: 'habit_'+Date.now(),
+    icon: '⭐', name: '新しい修行', desc: '説明を入力',
+    color: '#c9a84c', time: '朝', notifTime: '08:00'
+  };
+  state.habits.push(newH); save(); renderEdit();
+  // scroll to bottom
+  setTimeout(()=>{ const list=document.getElementById('editList'); list.lastChild?.scrollIntoView({behavior:'smooth'}); },100);
+}
+
+// Emoji picker
+function openEmojiPicker(idx, btn) {
+  editingEmoji = idx;
+  const picker = document.getElementById('emojiPicker');
+  const grid = document.getElementById('emojiGrid');
+  grid.innerHTML = '';
+  EMOJIS.forEach(e => {
+    const b = document.createElement('button');
+    b.className='emoji-opt'; b.textContent=e;
+    b.onclick=()=>{ state.habits[idx].icon=e; btn.textContent=e; picker.classList.remove('show'); save(); };
+    grid.appendChild(b);
+  });
+  const rect = btn.getBoundingClientRect();
+  picker.style.top=(rect.bottom+8)+'px';
+  picker.style.left=Math.min(rect.left,window.innerWidth-300)+'px';
+  picker.classList.add('show');
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.emoji-picker') && !e.target.closest('.edit-icon-btn'))
+    document.getElementById('emojiPicker').classList.remove('show');
+});
+
+// ============================================================
+// NOTIFICATIONS
+// ============================================================
+const NOTIF_SLOTS = [
+  {id:'morning', label:'朝の修行リマインダー', defaultTime:'07:00', msg:'🌅 おはようございます、シゲルさん。今日の朝の修行を始めましょう！'},
+  {id:'midday',  label:'昼の修行リマインダー', defaultTime:'13:00', msg:'☀️ 午後の修行の時間です。まだ完了していない修行を確認しましょう。'},
+  {id:'evening', label:'夜の修行リマインダー',  defaultTime:'20:00', msg:'🌙 夜の修行を忘れずに。感謝日記・就寝準備の時間です。'},
+  {id:'final',   label:'最終確認リマインダー',  defaultTime:'22:00', msg:'⭐ 今日の修行を締めくくりましょう。残り僅かです！'},
+];
+
+function renderNotif() {
+  const status = Notification.permission;
+  const statusEl = document.getElementById('notifStatus');
+  if (status==='granted') { statusEl.textContent='✓ 通知が許可されています'; statusEl.className='notif-status granted'; }
+  else if (status==='denied') { statusEl.textContent='✗ 通知がブロックされています（ブラウザ設定で許可してください）'; statusEl.className='notif-status denied'; }
+  else { statusEl.textContent='通知の許可が必要です'; statusEl.className='notif-status'; }
+
+  const list = document.getElementById('notifList');
+  list.innerHTML = '';
+  NOTIF_SLOTS.forEach(slot => {
+    const ns = state.notifSettings[slot.id] || {enabled:false, time:slot.defaultTime};
+    const div = document.createElement('div');
+    div.className = 'notif-item';
+    div.innerHTML = `
+      <div class="notif-item-header">
+        <div class="notif-item-title">${slot.label}</div>
+        <label class="notif-toggle">
+          <input type="checkbox" ${ns.enabled?'checked':''} onchange="toggleNotif('${slot.id}',this.checked)">
+          <span class="notif-slider"></span>
+        </label>
+      </div>
+      <div class="notif-time-row">
+        <div class="notif-time-label">通知時刻</div>
+        <input type="time" class="notif-time-pick" value="${ns.time||slot.defaultTime}" onchange="setNotifTime('${slot.id}',this.value)">
+      </div>
+      <div class="notif-msg">${slot.msg}</div>`;
+    list.appendChild(div);
+  });
+}
+
+function requestNotifPermission() {
+  if (!('Notification' in window)) { alert('このブラウザは通知をサポートしていません。'); return; }
+  Notification.requestPermission().then(p => { renderNotif(); if(p==='granted') scheduleNotifs(); });
+}
+
+function toggleNotif(slotId, enabled) {
+  if (!state.notifSettings[slotId]) state.notifSettings[slotId]={};
+  state.notifSettings[slotId].enabled = enabled;
+  const slot = NOTIF_SLOTS.find(s=>s.id===slotId);
+  if (!state.notifSettings[slotId].time) state.notifSettings[slotId].time = slot.defaultTime;
+  save(); scheduleNotifs(); renderHabits();
+}
+
+function setNotifTime(slotId, time) {
+  if (!state.notifSettings[slotId]) state.notifSettings[slotId]={};
+  state.notifSettings[slotId].time = time;
+  save(); scheduleNotifs();
+}
+
+let notifTimers = [];
+function scheduleNotifs() {
+  notifTimers.forEach(t=>clearTimeout(t));
+  notifTimers = [];
+  if (Notification.permission !== 'granted') return;
+
+  NOTIF_SLOTS.forEach(slot => {
+    const ns = state.notifSettings[slot.id];
+    if (!ns || !ns.enabled) return;
+    const [h,m] = (ns.time||slot.defaultTime).split(':').map(Number);
+    const now = new Date();
+    const target = new Date();
+    target.setHours(h,m,0,0);
+    if (target<=now) target.setDate(target.getDate()+1);
+    const delay = target-now;
+    const t = setTimeout(()=>{
+      const undone = state.habits.filter(h=>!isDone(h.id));
+      if (undone.length>0) {
+        new Notification('覚醒の道 ｜ 修行リマインダー', {
+          body: slot.msg + '\n未完了: '+undone.map(h=>h.name).join('、'),
+          icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">☸️</text></svg>'
+        });
+      }
+      scheduleNotifs(); // reschedule for next day
+    }, delay);
+    notifTimers.push(t);
+  });
+}
+
+// ============================================================
+// STARS
+// ============================================================
+function createStars() {
+  const c=document.getElementById('stars');
+  for(let i=0;i<80;i++){
+    const s=document.createElement('div'); s.className='star';
+    const size=Math.random()*2.5+.5;
+    s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${size}px;height:${size}px;--dur:${2+Math.random()*4}s;animation-delay:${Math.random()*4}s;`;
+    c.appendChild(s);
+  }
+}
+
+// ============================================================
+// MIDNIGHT CHECK
+// ============================================================
+function checkMidnightReset() {
+  const stored = localStorage.getItem('kakusei_last_date_v2');
+  const today = todayKey();
+  if (stored && stored!==today) { if(!state.checks[today]) state.checks[today]={}; save(); }
+  localStorage.setItem('kakusei_last_date_v2',today);
+}
+
+setInterval(()=>{ checkMidnightReset(); renderDate(); if(currentTab==='today') renderAll(); }, 60000);
+
+// ============================================================
+// INIT
+// ============================================================
+load();
+checkMidnightReset();
+createStars();
+renderAll();
+scheduleNotifs();
+setTimeout(()=>{ if(doneCount()<totalCount()) showCharacter('encourage'); },1500);
+</script>
+</body>
+</html>
