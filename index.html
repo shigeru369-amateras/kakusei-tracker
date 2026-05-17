@@ -186,6 +186,30 @@ header{position:relative;z-index:10;text-align:center;padding:32px 20px 16px;bor
 .notif-time-pick:focus{border-color:rgba(201,168,76,.4);}
 .notif-msg{font-size:11px;color:var(--text-dim);margin-top:8px;padding:8px;background:rgba(255,255,255,.03);border-radius:8px;line-height:1.6;}
 
+/* ===== WEEKLY HABIT BADGE ===== */
+.habit-freq{font-size:10px;color:var(--text-dim);letter-spacing:1px;}
+.habit-freq.weekly{color:var(--gold);}
+.weekly-bar-wrap{margin-top:6px;}
+.weekly-bar-label{display:flex;justify-content:space-between;font-size:10px;color:var(--text-dim);margin-bottom:3px;}
+.weekly-bar-label .wbl-count{color:var(--gold);}
+.weekly-bar{height:4px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden;}
+.weekly-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--gold),#6a4fc8);transition:width .6s cubic-bezier(.4,0,.2,1);}
+.weekly-bar-fill.done{background:linear-gradient(90deg,var(--jade),#50c8ff);}
+
+/* 週間サマリーカード */
+.weekly-summary{margin:0 16px 12px;background:var(--surface);border:1px solid rgba(201,168,76,.15);border-radius:14px;padding:14px 16px;position:relative;z-index:10;}
+.weekly-summary-title{font-size:10px;letter-spacing:3px;color:var(--text-dim);margin-bottom:10px;}
+.weekly-summary-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.weekly-summary-row:last-child{margin-bottom:0;}
+.wsrow-icon{font-size:16px;width:24px;text-align:center;}
+.wsrow-name{font-size:12px;color:var(--text);flex:1;}
+.wsrow-dots{display:flex;gap:3px;}
+.wsrow-dot{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.08);}
+.wsrow-dot.done{background:var(--jade);}
+.wsrow-dot.today-done{background:var(--gold);}
+.wsrow-stat{font-size:11px;color:var(--text-dim);min-width:36px;text-align:right;}
+.wsrow-stat.ok{color:var(--jade);}
+
 /* ===== SETTINGS FLOAT ===== */
 .fab{position:fixed;bottom:80px;right:20px;z-index:50;display:flex;flex-direction:column;gap:8px;align-items:flex-end;}
 .fab-btn{background:var(--surface2);border:1px solid rgba(201,168,76,.3);color:var(--gold);border-radius:20px;padding:8px 14px;font-size:13px;cursor:pointer;font-family:'Noto Serif JP',serif;transition:all .2s;white-space:nowrap;}
@@ -257,6 +281,12 @@ header{position:relative;z-index:10;text-align:center;padding:32px 20px 16px;bor
       </div>
     </div>
     <div class="progress-msg" id="progressMsg">今日の修行を始めましょう</div>
+  </div>
+
+  <!-- 週次習慣サマリー -->
+  <div class="weekly-summary" id="weeklySummary" style="display:none;">
+    <div class="weekly-summary-title">📅 週次習慣の進捗（今週）</div>
+    <div class="weekly-summary-rows"></div>
   </div>
 
   <div class="alert-banner" id="alertBanner">
@@ -357,16 +387,16 @@ header{position:relative;z-index:10;text-align:center;padding:32px 20px 16px;bor
 const EMOJIS = ['🏊','🧘','🌾','🫙','🌬️','✨','📖','🌙','🔮','🐉','🌸','☀️','🌊','⚡','🏃','🎯','🍵','💧','🌿','🙏','🧠','💪','❤️','🌍','🔥','⭐','🌟','💫','🎵','🌺','🦋','🌈'];
 
 const DEFAULT_HABITS = [
-  {id:'swim',    icon:'🏊', name:'水泳・有酸素運動',    desc:'心身を活性化する運動',           color:'#50c8ff', time:'朝',   notifTime:'06:30'},
-  {id:'yoga',    icon:'🧘', name:'ヨガ・気功',           desc:'気の流れを整え生命エネルギーを高める', color:'#c850c8', time:'朝',   notifTime:'07:00'},
-  {id:'prayer',  icon:'🙏', name:'お礼拝・瞑想',         desc:'天地への感謝と内なる静けさを育む', color:'#e8a050', time:'朝・夜',notifTime:'07:30'},
-  {id:'shiko',   icon:'🦵', name:'シコ踏み・陸上筋トレ', desc:'大地と繋がる体幹・下半身の強化', color:'#e85050', time:'朝',   notifTime:'08:00'},
-  {id:'genmai',  icon:'🌾', name:'めざめ玄米®️発酵発芽玄米', desc:'腸内環境・生命エネルギーの礎',   color:'#c8a050', time:'毎食', notifTime:'08:30'},
-  {id:'ferment', icon:'🫙', name:'発酵食品・プロテイン',    desc:'有用微生物群・タンパク質の補充', color:'#50c8a0', time:'毎食', notifTime:'09:00'},
-  {id:'breath',  icon:'🌬️', name:'チベット呼吸・呼吸法', desc:'神経系を整え覚醒を促す',         color:'#8050c8', time:'朝・夜',notifTime:'09:30'},
-  {id:'gratitude',icon:'✨', name:'感謝・祈り日記',       desc:'引き寄せの場を整える',           color:'#c8a84c', time:'夜',   notifTime:'21:00'},
-  {id:'learn',   icon:'📖', name:'学習・AI・精神世界',   desc:'叡智のインプット',               color:'#4c80c8', time:'昼',   notifTime:'13:00'},
-  {id:'sleep',   icon:'🌙', name:'22時までに就寝準備',   desc:'睡眠の質で翌日の覚醒が決まる',   color:'#4c50c8', time:'夜',   notifTime:'21:30'},
+  {id:'swim',    icon:'🏊', name:'水泳・有酸素運動',       desc:'心身を活性化する運動',               color:'#50c8ff', time:'朝',   notifTime:'06:30', freq:'week', freqTarget:2},
+  {id:'yoga',    icon:'🧘', name:'ヨガ・気功',             desc:'気の流れを整え生命エネルギーを高める', color:'#c850c8', time:'朝',   notifTime:'07:00', freq:'daily'},
+  {id:'prayer',  icon:'🙏', name:'お礼拝・瞑想',           desc:'天地への感謝と内なる静けさを育む',     color:'#e8a050', time:'朝・夜',notifTime:'07:30', freq:'daily'},
+  {id:'shiko',   icon:'🦵', name:'シコ踏み・陸上筋トレ',   desc:'大地と繋がる体幹・下半身の強化',       color:'#e85050', time:'朝',   notifTime:'08:00', freq:'week', freqTarget:2},
+  {id:'genmai',  icon:'🌾', name:'めざめ玄米®️発酵発芽玄米',desc:'腸内環境・生命エネルギーの礎',         color:'#c8a050', time:'毎食', notifTime:'08:30', freq:'daily'},
+  {id:'ferment', icon:'🫙', name:'発酵食品・プロテイン',    desc:'有用微生物群・タンパク質の補充',       color:'#50c8a0', time:'毎食', notifTime:'09:00', freq:'daily'},
+  {id:'breath',  icon:'🌬️', name:'チベット呼吸・呼吸法',  desc:'神経系を整え覚醒を促す',               color:'#8050c8', time:'朝・夜',notifTime:'09:30', freq:'daily'},
+  {id:'gratitude',icon:'✨', name:'感謝・祈り日記',         desc:'引き寄せの場を整える',                 color:'#c8a84c', time:'夜',   notifTime:'21:00', freq:'daily'},
+  {id:'learn',   icon:'📖', name:'学習・AI・精神世界',     desc:'叡智のインプット',                     color:'#4c80c8', time:'昼',   notifTime:'13:00', freq:'daily'},
+  {id:'sleep',   icon:'🌙', name:'22時までに就寝準備',     desc:'睡眠の質で翌日の覚醒が決まる',         color:'#4c50c8', time:'夜',   notifTime:'21:30', freq:'daily'},
 ];
 
 const CHARS = [
@@ -389,6 +419,13 @@ const COMPLETE = [
 const ENCOURAGE = [
   c=>`焦ることなかれ。<br>一つ一つの実践が<span class='char-highlight'>覚醒の螺旋</span>を描く。<br>今日もシゲルを応援しておるぞ。`,
   c=>`弥勒の世は<span class='char-highlight'>今、ここから</span>始まっている。<br>シゲルの習慣が、その礎じゃ。`,
+];
+
+// 複数まとめてチェックしたときの褒めメッセージ
+const BATCH = [
+  (names,c) => `<span class='char-highlight'>${names}</span><br>まとめて達成、見事じゃ！<br>その勢い、天まで届いておる。`,
+  (names,c) => `${c.title}も驚いておる！<br><span class='char-highlight'>${names}</span><br>この集中力こそ覚醒の証じゃ。`,
+  (names,c) => `一気に<span class='char-highlight'>${names}</span>を完了！<br>シゲルの魂の炎が<br>さらに燃え上がっておる。`,
 ];
 
 // ============================================================
@@ -421,6 +458,53 @@ function load() {
   } catch(e) {}
 }
 
+// 週の月曜日を返す
+function getWeekStart(dateStr) {
+  const d = dateStr ? new Date(dateStr+'T00:00:00') : new Date();
+  const day = d.getDay(); // 0=日
+  const diff = (day === 0) ? -6 : 1 - day;
+  d.setDate(d.getDate() + diff);
+  return d.toISOString().slice(0,10);
+}
+
+// 今週の特定習慣の実施回数
+function weekCountForHabit(habitId, weekStartStr) {
+  const ws = weekStartStr || getWeekStart();
+  let count = 0;
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(ws+'T00:00:00');
+    d.setDate(d.getDate() + i);
+    const k = d.toISOString().slice(0,10);
+    if (state.checks[k] && state.checks[k][habitId]) count++;
+  }
+  return count;
+}
+
+// 過去4週の特定習慣の週別実施回数配列
+function last4WeeksCount(habitId) {
+  const result = [];
+  for (let w = 3; w >= 0; w--) {
+    const d = new Date();
+    d.setDate(d.getDate() - w * 7);
+    const ws = getWeekStart(d.toISOString().slice(0,10));
+    result.push({ weekStart: ws, count: weekCountForHabit(habitId, ws) });
+  }
+  return result;
+}
+
+// 過去N日の実施回数
+function recentDaysCount(habitId, days) {
+  let count = 0;
+  const today = new Date();
+  for (let i = 0; i < days; i++) {
+    const d = new Date(today);
+    d.setDate(d.getDate() - i);
+    const k = d.toISOString().slice(0,10);
+    if (state.checks[k] && state.checks[k][habitId]) count++;
+  }
+  return count;
+}
+
 function todayChecks() {
   const k = todayKey();
   if (!state.checks[k]) state.checks[k] = {};
@@ -429,6 +513,20 @@ function todayChecks() {
 function isDone(id) { return !!todayChecks()[id]; }
 function doneCount() { return Object.keys(todayChecks()).length; }
 function totalCount() { return state.habits.length; }
+
+// 進捗率用：週次習慣は今週達成済みならカウント
+function effectiveDoneCount() {
+  let count = 0;
+  state.habits.forEach(h => {
+    if (h.freq === 'week') {
+      const target = h.freqTarget || 2;
+      if (weekCountForHabit(h.id) >= target) count++;
+    } else {
+      if (isDone(h.id)) count++;
+    }
+  });
+  return count;
+}
 
 // ============================================================
 // TABS
@@ -451,7 +549,10 @@ function switchTab(tab) {
 function updateStreak() {
   const k = todayKey();
   const checks = state.checks[k] || {};
-  const allDone = state.habits.every(h => checks[h.id]);
+  const allDone = state.habits.every(h => {
+    if (h.freq === 'week') return weekCountForHabit(h.id) >= (h.freqTarget||2);
+    return checks[h.id];
+  });
   if (allDone) {
     const yesterday = new Date(); yesterday.setDate(yesterday.getDate()-1);
     const yk = yesterday.toISOString().slice(0,10);
@@ -477,7 +578,7 @@ function renderDate() {
 }
 
 function renderProgress() {
-  const done = doneCount(), total = totalCount();
+  const done = effectiveDoneCount(), total = totalCount();
   const pct = total ? Math.round(done/total*100) : 0;
   const circ = 2*Math.PI*60;
   document.getElementById('ringPct').textContent = pct+'%';
@@ -493,22 +594,91 @@ function renderHabits() {
   state.habits.forEach(h => {
     const done = isDone(h.id);
     const ns = state.notifSettings[h.id] || {};
+    const isWeekly = h.freq === 'week';
+    const target = h.freqTarget || 2;
+    const weekCount = isWeekly ? weekCountForHabit(h.id) : 0;
+    const weekDone = isWeekly && weekCount >= target;
+
     const card = document.createElement('div');
-    card.className = 'habit-card'+(done?' done':'');
+    // weekly習慣：今週目標達成済みなら done スタイル（今日チェック不要）
+    const cardDone = done || (isWeekly && weekDone);
+    card.className = 'habit-card'+(cardDone?' done':'');
     card.style.setProperty('--habit-color', h.color);
+
+    const freqLabel = isWeekly
+      ? `<div class="habit-freq weekly">週${target}回</div>`
+      : `<div class="habit-freq">毎日</div>`;
+
+    const weeklyBar = isWeekly ? `
+      <div class="weekly-bar-wrap">
+        <div class="weekly-bar-label">
+          <span>今週</span>
+          <span class="wbl-count">${weekCount}/${target}回</span>
+        </div>
+        <div class="weekly-bar">
+          <div class="weekly-bar-fill${weekDone?' done':''}" style="width:${Math.min(weekCount/target*100,100)}%"></div>
+        </div>
+      </div>` : '';
+
     card.innerHTML = `
       <div class="habit-check">${done?'✓':''}</div>
       <div class="habit-info">
         <div class="habit-name"><span style="margin-right:4px">${h.icon}</span>${h.name}</div>
         <div class="habit-desc">${h.desc}</div>
+        ${weeklyBar}
       </div>
       <div class="habit-meta">
+        ${freqLabel}
         <div class="habit-time">${h.time}</div>
         ${ns.enabled?`<div class="habit-notif">🔔${ns.time||h.notifTime}</div>`:''}
       </div>`;
     card.onclick = () => toggleHabit(h.id, h.name, card);
     list.appendChild(card);
   });
+  renderWeeklySummary();
+}
+
+function renderWeeklySummary() {
+  const weeklyHabits = state.habits.filter(h => h.freq === 'week');
+  const el = document.getElementById('weeklySummary');
+  if (!el) return;
+  if (weeklyHabits.length === 0) { el.style.display='none'; return; }
+  el.style.display='block';
+
+  const ws = getWeekStart();
+  // 今週7日の日付キー
+  const weekDays = [];
+  for (let i=0;i<7;i++){
+    const d=new Date(ws+'T00:00:00'); d.setDate(d.getDate()+i);
+    weekDays.push(d.toISOString().slice(0,10));
+  }
+  const todayK = todayKey();
+
+  let html = '';
+  weeklyHabits.forEach(h => {
+    const target = h.freqTarget || 2;
+    const weekCount = weekCountForHabit(h.id);
+    const month7 = recentDaysCount(h.id, 30);
+    const dots = weekDays.map(dk => {
+      const checked = state.checks[dk] && state.checks[dk][h.id];
+      const isToday = dk===todayK;
+      if (checked && isToday) return `<div class="wsrow-dot today-done" title="${dk}"></div>`;
+      if (checked) return `<div class="wsrow-dot done" title="${dk}"></div>`;
+      if (dk > todayK) return `<div class="wsrow-dot" style="opacity:.3" title="${dk}"></div>`;
+      return `<div class="wsrow-dot" title="${dk}"></div>`;
+    }).join('');
+    const ok = weekCount >= target;
+    html += `<div class="weekly-summary-row">
+      <div class="wsrow-icon">${h.icon}</div>
+      <div class="wsrow-name">${h.name}</div>
+      <div class="wsrow-dots">${dots}</div>
+      <div class="wsrow-stat${ok?' ok':''}">${weekCount}/${target}</div>
+    </div>
+    <div style="font-size:10px;color:var(--text-dim);padding:0 0 8px 34px;letter-spacing:1px;">
+      過去30日: ${month7}回実施
+    </div>`;
+  });
+  el.querySelector('.weekly-summary-rows').innerHTML = html;
 }
 
 function renderAlert() {
@@ -526,15 +696,39 @@ function renderAll() {
 }
 
 // ============================================================
-// TOGGLE
+// TOGGLE — バッチ入力対応（1.8秒間チェックをまとめて、最後にキャラ登場）
 // ============================================================
+let batchTimer = null;
+let batchChecked = [];
+let batchCards = [];
+
 function toggleHabit(id, name, cardEl) {
   const checks = todayChecks();
-  if (checks[id]) { delete checks[id]; save(); renderAll(); }
-  else {
-    checks[id] = Date.now(); save(); renderAll(); spawnParticles(cardEl);
-    const allDone = state.habits.every(h => todayChecks()[h.id]);
-    setTimeout(() => showCharacter(allDone?'complete':'praise', name), 400);
+  if (checks[id]) {
+    delete checks[id];
+    batchChecked = batchChecked.filter(n => n !== name);
+    save(); renderAll();
+  } else {
+    checks[id] = Date.now();
+    batchChecked.push(name);
+    batchCards.push(cardEl);
+    save(); renderAll();
+    spawnParticles(cardEl);
+    if (batchTimer) clearTimeout(batchTimer);
+    batchTimer = setTimeout(() => {
+      const allDone = state.habits.every(h => todayChecks()[h.id]);
+      const names = [...batchChecked];
+      batchChecked = [];
+      batchCards = [];
+      batchTimer = null;
+      if (allDone) {
+        showCharacter('complete', names.join('・'));
+      } else if (names.length >= 3) {
+        showCharacter('batch', names.join('・'));
+      } else if (names.length > 0) {
+        showCharacter('praise', names.join('・'));
+      }
+    }, 1800);
   }
 }
 
@@ -563,6 +757,7 @@ function showCharacter(type, habitName='') {
   let msg;
   if (type==='praise') msg=PRAISE[Math.floor(Math.random()*PRAISE.length)](habitName,char);
   else if (type==='complete') msg=COMPLETE[Math.floor(Math.random()*COMPLETE.length)](char);
+  else if (type==='batch') msg=BATCH[Math.floor(Math.random()*BATCH.length)](habitName,char);
   else msg=ENCOURAGE[Math.floor(Math.random()*ENCOURAGE.length)](char);
   document.getElementById('charEmoji').textContent=char.emoji;
   document.getElementById('charName').textContent=char.name;
@@ -621,6 +816,10 @@ function renderCalendar() {
     const checks = state.checks[dk]||{};
     const done = Object.keys(checks).length;
     const total = state.habits.length;
+    const allDoneDay = state.habits.every(h => {
+      if (h.freq === 'week') return weekCountForHabit(h.id, getWeekStart(dk)) >= (h.freqTarget||2);
+      return checks[h.id];
+    });
     const isFuture = dk > today;
     const isToday = dk === today;
 
@@ -628,7 +827,7 @@ function renderCalendar() {
     el.className = 'cal-day';
     if (isFuture) el.classList.add('future');
     else if (done===0) el.classList.add('none');
-    else if (done>=total) { el.classList.add('full'); fullCount++; }
+    else if (allDoneDay) { el.classList.add('full'); fullCount++; }
     else el.classList.add('partial');
     if (isToday) el.classList.add('today');
 
@@ -666,6 +865,18 @@ function renderEdit() {
         <div style="display:flex;align-items:center;gap:8px;">
           <span style="font-size:11px;color:var(--text-dim)">色</span>
           <input type="color" class="edit-color" value="${h.color}" oninput="updateHabit(${i},'color',this.value)">
+        </div>
+        <div style="grid-column:1/-1;display:flex;align-items:center;gap:10px;">
+          <span style="font-size:11px;color:var(--text-dim);white-space:nowrap;">頻度</span>
+          <select class="edit-input" style="flex:1;" onchange="updateHabit(${i},'freq',this.value);renderEdit();">
+            <option value="daily" ${h.freq!=='week'?'selected':''}>毎日</option>
+            <option value="week" ${h.freq==='week'?'selected':''}>週N回</option>
+          </select>
+          ${h.freq==='week'?`
+          <span style="font-size:11px;color:var(--text-dim);white-space:nowrap;">目標</span>
+          <select class="edit-input" style="width:70px;" onchange="updateHabit(${i},'freqTarget',parseInt(this.value));saveHabits();">
+            ${[1,2,3,4,5,6,7].map(n=>`<option value="${n}" ${(h.freqTarget||2)===n?'selected':''}>${n}回</option>`).join('')}
+          </select>`:''}
         </div>
       </div>
       <div class="edit-actions">
