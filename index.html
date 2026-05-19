@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>覚醒の道</title>
+<title>覚醒への道</title>
 
 <!-- iPhone ホーム画面・PWA対応 -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="覚醒の道">
+<meta name="apple-mobile-web-app-title" content="覚醒への道">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#0a0a14">
 
@@ -343,6 +343,14 @@ header{position:relative;z-index:10;text-align:center;padding:32px 20px 16px;bor
 .reward-hint-text{flex:1;font-size:12px;color:var(--gold);letter-spacing:1px;}
 .reward-hint-arrow{font-size:16px;color:var(--gold-dim);}
 
+
+/* ===== DATE PICKER ===== */
+.dp-pill{flex-shrink:0;padding:8px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:var(--text-dim);font-size:12px;cursor:pointer;transition:all .2s;text-align:center;min-width:56px;font-family:'Noto Serif JP',serif;}
+.dp-pill:hover{border-color:rgba(201,168,76,.4);color:var(--gold);}
+.dp-pill.active{background:linear-gradient(135deg,rgba(201,168,76,.25),rgba(106,79,200,.15));border-color:rgba(201,168,76,.5);color:var(--gold);}
+.dp-pill.today{border-color:rgba(80,200,160,.4);color:var(--jade);}
+.dp-pill.today.active{background:linear-gradient(135deg,rgba(80,200,160,.2),rgba(80,200,160,.05));border-color:var(--jade);}
+
 /* ===== SCROLL ===== */
 ::-webkit-scrollbar{width:3px;}
 ::-webkit-scrollbar-track{background:var(--deep);}
@@ -380,12 +388,27 @@ if ('serviceWorker' in navigator) {
 <header>
   <div class="header-emblem">☸️</div>
   <div class="header-title">KAKUSEI TRACKER</div>
-  <div class="header-sub">覚醒の道</div>
+  <div class="header-sub">覚醒への道</div>
 </header>
 
 <div class="info-bar">
-  <div class="date-display" id="dateDisplay">—</div>
-  <div class="streak-badge">🔥 <span class="streak-num" id="streakNum">0</span> 日連続</div>
+  <div style="display:flex;flex-direction:column;gap:2px;">
+    <div class="date-display" id="dateDisplay">—</div>
+    <div id="editingDateBadge" style="display:none;font-size:10px;color:var(--sakura);letter-spacing:1px;">📅 過去日を編集中</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <button onclick="toggleDatePicker()" style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);color:var(--gold);border-radius:20px;padding:5px 12px;font-size:11px;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:1px;">📅 日付変更</button>
+    <div class="streak-badge">🔥 <span class="streak-num" id="streakNum">0</span> 日連続</div>
+  </div>
+</div>
+
+<!-- 日付選択パネル -->
+<div id="datePickerPanel" style="display:none;position:relative;z-index:20;background:var(--surface2);border-bottom:1px solid rgba(201,168,76,.2);padding:12px 16px;">
+  <div style="font-size:11px;color:var(--text-dim);letter-spacing:2px;margin-bottom:10px;">📅 入力する日付を選択</div>
+  <div id="datePickerDays" style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;"></div>
+  <div style="margin-top:10px;display:flex;justify-content:flex-end;">
+    <button onclick="returnToToday()" style="background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);color:var(--gold);border-radius:8px;padding:6px 14px;font-size:12px;cursor:pointer;font-family:'Noto Serif JP',serif;">今日に戻る</button>
+  </div>
 </div>
 
 <!-- TAB BAR -->
@@ -671,7 +694,14 @@ let state = {
   notifSettings: {},  // { slotId: { enabled, time } }
 };
 
-const todayKey = () => new Date().toISOString().slice(0,10);
+// 午前5時を境に日付を切り替え（5時未満は前日扱い）
+const todayKey = () => {
+  const now = new Date();
+  if (now.getHours() < 5) {
+    now.setDate(now.getDate() - 1);
+  }
+  return now.toISOString().slice(0,10);
+};
 
 function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){} }
 
@@ -735,8 +765,57 @@ function recentDaysCount(habitId, days) {
   return count;
 }
 
+// 選択中の日付（nullなら今日）
+let selectedDate = null;
+
+function activeKey() {
+  return selectedDate || todayKey();
+}
+
+function toggleDatePicker() {
+  const panel = document.getElementById('datePickerPanel');
+  const isOpen = panel.style.display !== 'none';
+  panel.style.display = isOpen ? 'none' : 'block';
+  if (!isOpen) renderDatePicker();
+}
+
+function renderDatePicker() {
+  const container = document.getElementById('datePickerDays');
+  container.innerHTML = '';
+  const todayK = todayKey();
+  // 過去14日分を表示
+  for (let i = 0; i <= 14; i++) {
+    const d = new Date();
+    if (d.getHours() < 5) d.setDate(d.getDate() - 1); // 5時未満は前日基準
+    d.setDate(d.getDate() - i);
+    const dk = d.toISOString().slice(0,10);
+    const dayNames = ['日','月','火','水','木','金','土'];
+    const label = i === 0 ? '今日' : i === 1 ? '昨日' : `${d.getMonth()+1}/${d.getDate()}`;
+    const sub = dayNames[d.getDay()];
+    const pill = document.createElement('button');
+    pill.className = 'dp-pill' + (i===0?' today':'') + (dk===activeKey()?' active':'');
+    pill.innerHTML = `<div>${label}</div><div style="font-size:9px;margin-top:2px;opacity:.7">${sub}</div>`;
+    pill.onclick = () => selectDate(dk, i===0);
+    container.appendChild(pill);
+  }
+}
+
+function selectDate(dk, isToday) {
+  selectedDate = isToday ? null : dk;
+  document.getElementById('datePickerPanel').style.display = 'none';
+  document.getElementById('editingDateBadge').style.display = selectedDate ? 'block' : 'none';
+  renderAll();
+}
+
+function returnToToday() {
+  selectedDate = null;
+  document.getElementById('datePickerPanel').style.display = 'none';
+  document.getElementById('editingDateBadge').style.display = 'none';
+  renderAll();
+}
+
 function todayChecks() {
-  const k = todayKey();
+  const k = activeKey();
   if (!state.checks[k]) state.checks[k] = {};
   return state.checks[k];
 }
@@ -802,10 +881,13 @@ function updateStreak() {
 // RENDER TODAY
 // ============================================================
 function renderDate() {
-  const now = new Date();
+  const dk = activeKey();
+  const d = new Date(dk + 'T00:00:00');
   const days = ['日','月','火','水','木','金','土'];
+  const todayK = todayKey();
+  const suffix = dk === todayK ? '' : dk === (() => { const y=new Date(todayK+'T00:00:00'); y.setDate(y.getDate()-1); return y.toISOString().slice(0,10); })() ? '（昨日）' : '（過去）';
   document.getElementById('dateDisplay').textContent =
-    `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 （${days[now.getDay()]}）`;
+    `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日（${days[d.getDay()]}）${suffix}`;
 }
 
 function renderProgress() {
@@ -1762,9 +1844,14 @@ function createStars() {
 // ============================================================
 function checkMidnightReset() {
   const stored = localStorage.getItem('kakusei_last_date_v2');
-  const today = todayKey();
-  if (stored && stored!==today) { if(!state.checks[today]) state.checks[today]={}; save(); }
-  localStorage.setItem('kakusei_last_date_v2',today);
+  const today = todayKey(); // 5時基準
+  if (stored && stored!==today) {
+    if(!state.checks[today]) state.checks[today]={};
+    // 日付が変わったら選択日をリセット
+    selectedDate = null;
+    save();
+  }
+  localStorage.setItem('kakusei_last_date_v2', today);
 }
 
 setInterval(()=>{ checkMidnightReset(); renderDate(); if(currentTab==='today') renderAll(); }, 60000);
